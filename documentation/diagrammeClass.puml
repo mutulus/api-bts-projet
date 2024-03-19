@@ -18,6 +18,10 @@ Class Utilisateur{
     -username : string
     -password : string
     -roles : string
+    +creerCompte()
+    +sAbonner()
+    +seConnecter()
+    +listerFilm()
 }
 
 Class Reservation{
