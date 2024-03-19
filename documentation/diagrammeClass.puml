@@ -12,16 +12,13 @@ Class Séance{
 Class Film{
     -titre: string
     -durée minutes : int
+    +estAffiche()
 }
 
 Class Utilisateur{
     -username : string
     -password : string
     -roles : string
-    +creerCompte()
-    +sAbonner()
-    +seConnecter()
-    +listerFilm()
 }
 
 Class Reservation{
