@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FilmsController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        {% for film in film %}
+        <h1>{{ film.titre }}</h1>
+        <p>Durée = {{ film.dureeMin }} minutes </p>
+        <h2>Séances programmées</h2>
+
+            {% for seance in film.seances %}
+                <ul>
+                    <h3>Séance {{ seance.id }}</h3>
+                <li>Date: {{ seance.dateProjection }}</li>
+                <li>Tarif normal: {{ seance.tarifNormal }}</li>
+                <li>Tarif réduit: {{ seance.tarifReduit }}</li>
+                <p>Salle:</p>
+                <li>Nom: {{ seance.salle.nom }}</li>
+                <li>Places: {{ seance.salle.nbPlaces }}</li>
+                </ul>
+            {% endfor %}
+
+        {% endfor %}
+    </div>
+{% endblock %}
