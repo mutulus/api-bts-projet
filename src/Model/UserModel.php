@@ -7,12 +7,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserModel
 {
+    #[Assert\Email(
+        message: "L'email n'est pas au bon format"
+    )]
     private ?string $email = null;
     private ?string $password = null;
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getEmail(): ?string
     {
