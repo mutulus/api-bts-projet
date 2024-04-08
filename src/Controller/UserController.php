@@ -37,7 +37,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute("app_films");
         } else {
             $message = $reponse["message"];
-            $form->get("email")->addError(new FormError($message));
+            $form->get('email')->addError(new FormError($message));
         }
 
 

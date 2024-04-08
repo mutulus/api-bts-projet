@@ -34,7 +34,7 @@ class FilmsController extends AbstractController
         $contenu = $this->service->recupererFilmId($id);
         foreach ($contenu[0]['seances'] as &$seance){
             $date=new \DateTime($seance['dateProjection']);
-            $date=$date->format('d/m/y h:i');
+            $date=$date->format('d/m/y H:i');
             $seance['dateProjection']=$date ;
         }
         return $this->render('films/filmDetail.html.twig',[
