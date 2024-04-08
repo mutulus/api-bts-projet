@@ -31,21 +31,25 @@ class ApiUser
     public function CreerCompte(string $email, string $password):array
     {
         // Appel au modèle afin de récupérer les données
+        try {
+            $reponseApi = $this->client->request(
+                'POST',
+                'http://172.16.209.1:8000/api/register',
+                ['headers'=>[
+                    'Accept'=>'application/json',
+                    'Content-Type'=>'application/json'
+                ],'body'=>json_encode([
+                    "email"=>$email,
+                    "password"=>$password
+                ])
+                ]
 
-        $reponseApi = $this->client->request(
-            'POST',
-            'http://172.16.209.1:8000/api/register',
-            ['headers'=>[
-                'Accept'=>'application/json',
-                'Content-Type'=>'application/json'
-            ],'body'=>json_encode([
-                "email"=>$email,
-                "password"=>$password
-            ])
-            ]
-
-        );
-        return $reponseApi->toArray();
+            );
+            return $reponseApi->toArray();
+        } catch (\Exception $e){
+            $error= json_decode($reponseApi->getContent(false));
+            return ["code" => $error->Code, "message"=>$error->Erreur];
+        }
     }
 
 }

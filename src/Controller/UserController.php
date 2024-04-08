@@ -6,6 +6,7 @@ use App\Form\RegisterType;
 use App\Model\UserModel;
 use App\Service\ApiUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,16 +32,15 @@ class UserController extends AbstractController
     $form->handleRequest($request->getCurrentRequest());
     if ($form->isSubmitted() && $form->isValid()) {
         $user = $form->getData();
-        $reponseApi = $this->apiUser->CreerCompte($user->getEmail(), $user->getPassword());
-
-        if (isset($message)){
-            return $this->render('User/Register.html.twig', [
-                'form'=>$form,
-                'erreur'=>$message
-            ]);
+        $reponse = $this->apiUser->CreerCompte($user->getEmail(), $user->getPassword());
+        if ($reponse["code"] === 201){
+            return $this->redirectToRoute("app_films");
+        } else {
+            $message = $reponse["message"];
+            $form->get("email")->addError(new FormError($message));
         }
-        $this->addFlash("success","Ce compte a bien été créé");
-        $this->redirectToRoute("app_films");
+
+
     }
         return $this->render('User/Register.html.twig', [
             'form'=>$form,
