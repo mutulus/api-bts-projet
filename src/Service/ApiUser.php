@@ -34,7 +34,8 @@ class ApiUser
         try {
             $reponseApi = $this->client->request(
                 'POST',
-                'http://172.16.209.1:8000/api/register',
+//                'http://172.16.209.1:8000/api/register',
+                'http://127.0.0.1:8000/api/register',
                 ['headers'=>[
                     'Accept'=>'application/json',
                     'Content-Type'=>'application/json'

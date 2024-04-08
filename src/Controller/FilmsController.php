@@ -29,7 +29,7 @@ class FilmsController extends AbstractController
         return $this->render('films/index.html.twig', ['films' => $contenu]);
     }
     #[Route('/film/{id}',name: 'app_film_detail')]
-    public function detailId(int $id):Response
+    public function recupererFilmId(int $id):Response
     {
         $contenu = $this->service->recupererFilmId($id);
         foreach ($contenu[0]['seances'] as &$seance){
