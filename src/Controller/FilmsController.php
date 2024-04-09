@@ -11,7 +11,6 @@ class FilmsController extends AbstractController
 {
 
 
-
     private ApiFilms $service;
 
     /**
@@ -28,17 +27,23 @@ class FilmsController extends AbstractController
         $contenu = $this->service->recupererFilms();
         return $this->render('films/index.html.twig', ['films' => $contenu]);
     }
-    #[Route('/film/{id}',name: 'app_film_detail')]
-    public function recupererFilmId(int $id):Response
+
+    #[Route('/film/{id}', name: 'app_film_detail')]
+    public function recupererFilmId(int $id): Response
     {
         $contenu = $this->service->recupererFilmId($id);
-        foreach ($contenu[0]['seances'] as &$seance){
-            $date=new \DateTime($seance['dateProjection']);
-            $date=$date->format('d/m/y H:i');
-            $seance['dateProjection']=$date ;
+        if ($contenu["code"] === 201) {
+            foreach ($contenu[0][0]['seances'] as &$seance) {
+                $date = new \DateTime($seance['dateProjection']);
+                $date = $date->format('d/m/y H:i');
+                $seance['dateProjection'] = $date;
+            }
+            return $this->render('films/filmDetail.html.twig', [
+                'film' => $contenu]);
+        } else {
+            return $this->render('films/filmDetail.html.twig', [
+                'erreur' => $contenu]);
         }
-        return $this->render('films/filmDetail.html.twig',[
-            'film'=>$contenu]);
     }
 
 }

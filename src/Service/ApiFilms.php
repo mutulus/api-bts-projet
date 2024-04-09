@@ -24,12 +24,19 @@ class ApiFilms
     }
     public function recupererFilmId(int $id):array
     {
-        $reponseApi = $this->client->request(
-            'GET',
-            'http://172.16.209.1:8000/api/films/'.$id
+        try {
+            $reponseApi = $this->client->request(
+                'GET',
+                'http://172.16.209.1:8000/api/films/'.$id
 //            'http://127.0.0.1:8000/api/films/'.$id
-        );
-        return $reponseApi->toArray();
+            );
+            return $reponseApi->toArray();
+        }catch (\Exception $e){
+            $error= json_decode($reponseApi->getContent(false));
+            return ["code" => $error->Code, "message"=>$error->Erreur];
+        }
+
+
     }
 
 }

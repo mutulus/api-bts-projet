@@ -26,24 +26,24 @@ class UserController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(RequestStack $request): Response
     {
-    $user = new UserModel();
-    $form=$this->createForm(RegisterType::class,$user);
+        $user = new UserModel();
+        $form = $this->createForm(RegisterType::class, $user);
 
-    $form->handleRequest($request->getCurrentRequest());
-    if ($form->isSubmitted() && $form->isValid()) {
-        $user = $form->getData();
-        $reponse = $this->apiUser->CreerCompte($user->getEmail(), $user->getPassword());
-        if ($reponse["code"] === 201){
-            return $this->redirectToRoute("app_films");
-        } else {
-            $message = $reponse["message"];
-            $form->get('email')->addError(new FormError($message));
+        $form->handleRequest($request->getCurrentRequest());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $reponse = $this->apiUser->CreerCompte($user->getEmail(), $user->getPassword());
+            if ($reponse["code"] === 201) {
+                return $this->redirectToRoute("app_films");
+            } else {
+                $message = $reponse["message"];
+                $form->get('email')->addError(new FormError($message));
+            }
+
+
         }
-
-
-    }
         return $this->render('User/Register.html.twig', [
-            'form'=>$form,
+            'form' => $form,
         ]);
     }
 }
