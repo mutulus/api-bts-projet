@@ -28,28 +28,52 @@ class ApiUser
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function CreerCompte(string $email, string $password):array
+    public function CreerCompte(string $email, string $password): array
     {
         // Appel au modèle afin de récupérer les données
         try {
             $reponseApi = $this->client->request(
                 'POST',
-                'http://172.16.209.1:8000/api/register',
-//                'http://127.0.0.1:8000/api/register',
-                ['headers'=>[
-                    'Accept'=>'application/json',
-                    'Content-Type'=>'application/json'
-                ],'body'=>json_encode([
-                    "email"=>$email,
-                    "password"=>$password
+//                'http://172.16.209.1:8000/api/register',
+                'http://127.0.0.1:8000/api/register',
+                ['headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ], 'body' => json_encode([
+                    "email" => $email,
+                    "password" => $password
                 ])
                 ]
 
             );
             return $reponseApi->toArray();
-        } catch (\Exception $e){
-            $error= json_decode($reponseApi->getContent(false));
-            return ["code" => $error->Code, "message"=>$error->Erreur];
+        } catch (\Exception $e) {
+            $error = json_decode($reponseApi->getContent(false));
+            return ["code" => $error->Code, "message" => $error->Erreur];
+        }
+    }
+
+    public function seLogin(string $email, string $password): array
+    {
+        try {
+            $reponseApi = $this->client->request(
+                'POST',
+//                'http://172.16.209.1:8000/api/register',
+                'http://127.0.0.1:8000/api/login_check',
+                ['headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ], 'body' => json_encode([
+                    "username" => $email,
+                    "password" => $password
+                ])
+                ]
+
+            );
+            return $reponseApi->toArray();
+        } catch (\Exception $e) {
+            $error = json_decode($reponseApi->getContent(false));
+            return ["code" => $error->code, "message" => $error->message];
         }
     }
 

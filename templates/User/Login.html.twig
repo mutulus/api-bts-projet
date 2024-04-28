@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}heyyy!{% endblock %}
+
+{% block body %}
+    <h1 class="mt-5 text-center">Se connecter</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    <button type="submit" class="btn btn-primary">Valider</button>
+    {{ form_end(form) }}
+
+    {% if erreur is defined %}
+        <p>{{ erreur }}</p>
+    {% endif %}
+{% endblock %}
