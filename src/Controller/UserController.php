@@ -34,8 +34,10 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $reponse = $this->apiUser->CreerCompte($user->getEmail(), $user->getPassword());
+
             if ($reponse["code"] === 201) {
-                return $this->addFlash("success", "Le compte a bien été créé");
+                $this->addFlash("success", "Le compte a bien été créé");
+                return $this->redirectToRoute('app_login');
             } else {
                 $message = $reponse["message"];
                 $form->get('email')->addError(new FormError($message));
@@ -60,7 +62,7 @@ class UserController extends AbstractController
             $user = $form->getData();
             $reponse = $this->apiUser->seLogin($user->getEmail(), $user->getPassword());
 
-            if ($reponse["code"] === 200) {
+            if (!empty($reponse["token"] )) {
                 $request->getSession()->set('Token', $reponse["token"]);
                 $this->addFlash("success", "Connexion réussie");
                 return $this->redirectToRoute("app_films");
