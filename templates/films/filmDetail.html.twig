@@ -25,14 +25,19 @@
 
                 {% for seance in film.seances %}
                     <ul>
-                        <h3>Séance {{ seance.id }}</h3>
-                        <li>Date: {{ seance.dateProjection }}</li>
+                        <h3>Séance du {{ seance.dateProjection }}</h3>
                         <li>Tarif normal: {{ seance.tarifNormal }}</li>
                         <li>Tarif réduit: {{ seance.tarifReduit }}</li>
                         <p>Salle:</p>
                         <li>Nom: {{ seance.salle.nom }}</li>
                         <li>Places: {{ seance.salle.nbPlaces }}</li>
                     </ul>
+                    <form method="post">
+{#                        A faire#}
+                        <label for="nb">Nombres de places à réserver</label>
+                        <input type="number" value="Réserve">
+                        <button type="submit"> Réserver </button>
+                    </form>
                 {% endfor %}
 
             {% endfor %}
