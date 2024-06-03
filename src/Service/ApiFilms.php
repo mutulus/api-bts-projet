@@ -17,8 +17,7 @@ class ApiFilms
     public function recupererFilms():array{
         $reponseApi = $this->client->request(
             'GET',
-//            'http://172.16.209.1:8000/api/films'
-            'http://127.0.0.1:8000/api/films'
+            'http://172.16.209.1:8000/api/films'
 
         );
         return $reponseApi->toArray();
@@ -28,8 +27,8 @@ class ApiFilms
         try {
             $reponseApi = $this->client->request(
                 'GET',
-//               'http://172.16.209.1:8000/api/films/'.$id
-            'http://127.0.0.1:8000/api/films/'.$id
+               'http://172.16.209.1:8000/api/films/'.$id
+
             );
             return $reponseApi->toArray();
         }catch (\Exception $e){
@@ -43,8 +42,8 @@ class ApiFilms
             try {
                 $reponseApi = $this->client->request(
                     'POST',
-//                'http://172.16.209.1:8000/api/login_check',
-                    'http://127.0.0.1:8000/api/reserver/'.$id,
+                'http://172.16.209.1:8000/api/reserver/'.$id,
+
                     ['headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
