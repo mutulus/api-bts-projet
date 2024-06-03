@@ -40,6 +40,10 @@ class FilmsController extends AbstractController
             $nbPlaces = $request->getCurrentRequest()->get("places");
             $idSeance = $request->getCurrentRequest()->get("idSeance");
             $token = $request->getSession()->get('Token');
+            if (empty($token)) {
+                return $this->render('films/filmDetail.html.twig', [
+                    'formError' => 'Veuillez vous connecter afin de réserver une séance']);
+            }
             $reponse = $this->service->reserverSeance($idSeance, $nbPlaces, $token);
 
 //            $montant = $reservationNew->getPrixTotal() * $reservationNew->getNbPlaces();

@@ -40,7 +40,11 @@
                         <button type="submit" class="btn btn-primary" style="margin-top: 18px">Valider</button>
 
                     </form>
-                    <h4 style="font-size: 28px">{{ formError }}</h4>
+                    {% if formError %}
+                        <div class="alert alert-danger">
+                            {{ formError }}
+                        </div>
+                    {% endif %}
 
                 {% endfor %}
 
